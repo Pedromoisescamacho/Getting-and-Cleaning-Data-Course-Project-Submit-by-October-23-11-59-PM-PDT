@@ -1,5 +1,6 @@
 #please download the data to the directory of your preference
 #the following code will prompt you to select a directory, please select the directory where you have the data
+rm(list=ls())
 setwd(choose.dir())
 #the packages reshage2 and dplyr are going to be used. if you don't have it you need to download it
 library(reshape2)
@@ -47,6 +48,7 @@ colnames(dataset) <- c("subject", "activity", labels)
 activity_labels <-  read.table("./activity_labels.txt")[,2] #loading the table with the factors
 dataset$activity<-  factor(dataset$activity, labels = activity_labels) #creating the factors, POINT 3 OF THE ASSIGNMENT
 dataset$subject <-  as.factor(dataset$subject)
+sum(is.na(dataset)) #we test to see whether or not it has values as NA, during the testing it had 0
 
 #we group de dataset by subject and activity. then we create a table with the means of all the other variables
 grouped_DS      <- melt(dataset) #will use subject and activity as id variables
